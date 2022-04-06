@@ -4,12 +4,24 @@
                            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                            xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence_2_2.xsd">
 
-    <persistence-unit name="hibernate-people" transaction-type="">
+    <!-- SQL code used for database ==> CREATE SCHEMA people_management;
+    
+                                        CREATE TABLE `people_management`.`people` (
+                                        `person_id` INT(11) NOT NULL AUTO_INCREMENT,
+                                        `name` VARCHAR(45) NULL DEFAULT NULL,
+                                        `surname` VARCHAR(45) NULL DEFAULT NULL,
+                                        `email` VARCHAR(45) NULL DEFAULT NULL,
+                                        `phone` INT NULL DEFAULT NULL,
+                                        PRIMARY KEY (`person_id`),
+                                        UNIQUE INDEX `email_UNIQUE` (`email` ASC) VISIBLE);
+    --> 
+    
+    <persistence-unit name="hibernate-people" transaction-type="RESOURCE_LOCAL">
         
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
         <class>com.people.domain.Person</class>
         <properties>
-            <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/people_management?useSSL=true&amp;useTimezone=true&amp;serverTimezone=UTC" />
+            <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/people_management?useSSL=false&amp;useTimezone=true&amp;serverTimezone=UTC&amp;allowPublicKeyRetrieval=true" />
             <property name="javax.persistence.jdbc.user" value="root" />
             <property name="javax.persistence.jdbc.password" value="admin" />
             <property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver" />

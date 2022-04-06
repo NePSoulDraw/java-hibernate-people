@@ -5,9 +5,7 @@ import com.people.domain.Person;
 import java.util.List;
 import javax.persistence.*;
 
-public class PersonDao{
-    
-    // Apply PersonDao interface
+public class PersonDao implements IPersonDao{
     
     private EntityManagerFactory emf;
     private EntityManager em;
@@ -17,20 +15,45 @@ public class PersonDao{
         em = emf.createEntityManager();
     }
     
-    public void getAllPeople(){
+    @Override
+    public List<Person> getAllPeople(){
+        
+        String hql = "SELECT p FROM Person p";
+        
+        Query query = em.createQuery(hql);
+        
+        List<Person> people = query.getResultList();
+        
+        return people;
+        
     }
     
-    public void getPerson(Person person) {
+    @Override
+    public Person getPerson(Person person) {
+        
+        return person;
+        
     }
     
-    public void insertPerson(Person person){
+    @Override
+    public int insertPerson(Person person){
+        
+        return 1;
         
     }
 
-    public void updatePerson(Person person) {
+    @Override
+    public int updatePerson(Person person) {
+        
+        return 1;
+        
     }
 
-    public void deletePerson(Person person) {
+    @Override
+    public int deletePerson(Person person) {
+        
+        return 1;
+        
     }
     
 }
