@@ -16,6 +16,7 @@ public class PersonDao implements IPersonDao{
     }
     
     @Override
+    @SuppressWarnings("unchecked")
     public List<Person> getAllPeople(){
         
         String hql = "SELECT p FROM Person p";
