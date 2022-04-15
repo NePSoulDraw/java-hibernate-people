@@ -10,10 +10,10 @@ public interface IPersonDao {
     
     Person getPerson(Person person);
     
-    int insertPerson(Person person);
+    void insertPerson(Person person);
     
-    int updatePerson(Person person);
+    void updatePerson(Person person);
     
-    int deletePerson(Person person);
+    void deletePerson(Person person);
     
 }

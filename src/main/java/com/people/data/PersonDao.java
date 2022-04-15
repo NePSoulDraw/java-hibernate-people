@@ -31,28 +31,83 @@ public class PersonDao implements IPersonDao{
     @Override
     public Person getPerson(Person person) {
         
-        return person;
+        return em.find(Person.class, person.getPersonId());
         
     }
     
     @Override
-    public int insertPerson(Person person){
+    public void insertPerson(Person person){
         
-        return 1;
+        try {
+            
+            em.getTransaction().begin();
+            em.persist(person);
+            em.getTransaction().commit();
+            
+        } catch (Exception ex) {
+            
+            ex.printStackTrace(System.out);
+            em.getTransaction().rollback();
+            
+        } finally {
+            
+            if (em != null){
+                em.close();
+            }
+            
+        }
         
     }
 
     @Override
-    public int updatePerson(Person person) {
+    public void updatePerson(Person person) {
         
-        return 1;
+        Person personForUpdate = this.getPerson(person);
+        
+        try {
+            
+            em.getTransaction().begin();
+            em.merge(personForUpdate);
+            em.getTransaction().commit();
+            
+        } catch (Exception ex) {
+            
+            ex.printStackTrace(System.out);
+            em.getTransaction().rollback();
+            
+        } finally {
+            
+            if (em != null){
+                em.close();
+            }
+            
+        }
         
     }
 
     @Override
-    public int deletePerson(Person person) {
+    public void deletePerson(Person person) {
         
-        return 1;
+        Person personForDelete = this.getPerson(person);
+        
+        try {
+            
+            em.getTransaction().begin();
+            em.remove(em.merge(personForDelete));
+            em.getTransaction().commit();
+            
+        } catch (Exception ex) {
+            
+            ex.printStackTrace(System.out);
+            em.getTransaction().rollback();
+            
+        } finally {
+            
+            if (em != null){
+                em.close();
+            }
+            
+        }
         
     }
     
