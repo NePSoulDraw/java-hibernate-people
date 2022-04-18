@@ -25,7 +25,7 @@ public class ServletController extends HttpServlet{
         
         req.setAttribute("people", allPeople);
         
-        req.getRequestDispatcher("/WEB-INF/peopleList.jsp").forward(req, res);
+        req.getRequestDispatcher("/WEB-INF/people.jsp").forward(req, res);
         
     }
     
