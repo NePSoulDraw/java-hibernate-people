@@ -19,15 +19,21 @@ public class ServletController extends HttpServlet{
     protected void doGet(HttpServletRequest req, HttpServletResponse res) 
             throws ServletException, IOException{
         
-        PersonService personService = new PersonService();
-        
-        List<Person> allPeople = personService.getAllPeople();
-        
-        req.setAttribute("people", allPeople);
-        
-        req.getRequestDispatcher("/WEB-INF/people.jsp").forward(req, res);
+        this.deployInfo(req, res);
         
     }
     
+    private void deployInfo(HttpServletRequest req, HttpServletResponse res) 
+                   throws ServletException, IOException{
+        
+        List<Person> people = new PersonService().getAllPeople();
+        
+        HttpSession session = req.getSession();
+        
+        session.setAttribute("people", people);
+        
+        res.sendRedirect("people.jsp");
+        
+    }
     
 }
