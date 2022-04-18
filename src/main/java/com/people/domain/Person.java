@@ -26,6 +26,20 @@ public class Person implements Serializable{
     @Column(name = "phone")
     private int phone;
 
+    public Person() {
+    }
+    
+    public Person(int personId) {
+        this.personId = personId;
+    }
+
+    public Person(String name, String surname, String email, int phone) {
+        this.name = name;
+        this.surname = surname;
+        this.email = email;
+        this.phone = phone;
+    }
+    
     public int getPersonId() {
         return personId;
     }
