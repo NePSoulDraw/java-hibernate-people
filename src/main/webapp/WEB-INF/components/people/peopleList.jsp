@@ -12,17 +12,19 @@
         </tr>
     </thead>
     <tbody>
-    <c:forEach var="person" items="${people}">
-        <tr>
-            <td>${person.personId}</td>
-            <td>${person.name}</td>
-            <td>${person.surname}</td>
-            <td>${person.email}</td>
-            <td>${person.phone}</td>
-            <td>
-                <button type="button" class="btn btn-secondary">Editar</button>
-            </td>
-        </tr>
-    </c:forEach>
-</tbody>
+        <c:forEach var="person" items="${people}">
+            <tr>
+                <td>${person.personId}</td>
+                <td>${person.name}</td>
+                <td>${person.surname}</td>
+                <td>${person.email}</td>
+                <td>${person.phone}</td>
+                <td>
+                    <button type="button" class="btn btn-secondary">Editar</button>
+                </td>
+            </tr>
+        </c:forEach>
+    </tbody>
 </table>
+
+<jsp:include page="/WEB-INF/components/people/createPerson.jsp" />
