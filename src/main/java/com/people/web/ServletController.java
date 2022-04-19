@@ -36,6 +36,9 @@ public class ServletController extends HttpServlet{
                 case "edit":
                     this.updatePerson(req, res);
                     break;
+                case "delete":
+                    this.deletePerson(req, res);
+                    break;
                 default:
                     this.deployInfo(req, res);
             }
@@ -199,6 +202,29 @@ public class ServletController extends HttpServlet{
         Person person = new Person(personId, name, surname, email, phone);
         
         new PersonService().updatePerson(person);
+        
+        this.deployInfo(req, res);
+        
+    }
+    
+    private void deletePerson(HttpServletRequest req, HttpServletResponse res) 
+            throws ServletException, IOException{
+        
+        String personIdString = req.getParameter("personId");
+        
+        int personId = 0;
+        
+        if(personIdString != null && !"".equals(personIdString)){
+            
+            personId = Integer.parseInt(personIdString);
+            
+        }
+        
+        PersonService personService = new PersonService();
+        
+        Person person = personService.getPerson(new Person(personId));
+        
+        personService.deletePerson(person);
         
         this.deployInfo(req, res);
         
