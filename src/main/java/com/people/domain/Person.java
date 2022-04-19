@@ -39,6 +39,14 @@ public class Person implements Serializable{
         this.email = email;
         this.phone = phone;
     }
+
+    public Person(int personId, String name, String surname, String email, int phone) {
+        this.personId = personId;
+        this.name = name;
+        this.surname = surname;
+        this.email = email;
+        this.phone = phone;
+    }
     
     public int getPersonId() {
         return personId;

@@ -33,6 +33,9 @@ public class ServletController extends HttpServlet{
                 case "orderByPhone":
                     this.deployInfoSortByPhone(req, res);
                     break;
+                case "edit":
+                    this.updatePerson(req, res);
+                    break;
                 default:
                     this.deployInfo(req, res);
             }
@@ -54,6 +57,9 @@ public class ServletController extends HttpServlet{
             switch(action){
                 case "insert":
                     this.insertPerson(req, res);
+                    break;
+                case "modify":
+                    this.modifyPerson(req, res);
                     break;
                 default:
                     this.deployInfo(req, res);
@@ -139,6 +145,60 @@ public class ServletController extends HttpServlet{
         Person person = new Person(name, surname, email, phone);
         
         new PersonService().createPerson(person);
+        
+        this.deployInfo(req, res);
+        
+    }
+    
+    private void updatePerson(HttpServletRequest req, HttpServletResponse res) 
+            throws ServletException, IOException{
+        
+        String personIdString = req.getParameter("personId");
+        
+        int personId = Integer.parseInt(personIdString);
+        
+        Person person = new Person(personId);
+        
+        Person personObtained = new PersonService().getPerson(person);
+        
+        req.setAttribute("person", personObtained);
+        
+        req.getRequestDispatcher("/WEB-INF/components/people/editPerson.jsp").forward(req, res);
+        
+    }
+    
+    private void modifyPerson(HttpServletRequest req, HttpServletResponse res) 
+            throws ServletException, IOException{
+        
+        String personIdString = req.getParameter("personId");
+        
+        int personId = 0;
+        
+        String name = req.getParameter("name");
+        
+        String surname = req.getParameter("surname");
+        
+        String email = req.getParameter("email");
+        
+        String phoneString = req.getParameter("phone");
+        
+        int phone = 0;
+        
+        if(phoneString != null && !"".equals(phoneString)){
+            
+            phone = Integer.parseInt(phoneString);
+            
+        }
+        
+        if(personIdString != null && !"".equals(personIdString)){
+            
+            personId = Integer.parseInt(personIdString);
+            
+        }
+        
+        Person person = new Person(personId, name, surname, email, phone);
+        
+        new PersonService().updatePerson(person);
         
         this.deployInfo(req, res);
         

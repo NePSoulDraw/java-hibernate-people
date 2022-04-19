@@ -20,7 +20,10 @@
                 <td>${person.email}</td>
                 <td>${person.phone}</td>
                 <td>
-                    <button type="button" class="btn btn-secondary">Editar</button>
+                    <a href="${pageContext.request.contextPath}/ServletController?action=edit&personId=${person.personId}" 
+                       type="button" class="btn btn-secondary">
+                        Editar
+                    </a>
                 </td>
             </tr>
         </c:forEach>

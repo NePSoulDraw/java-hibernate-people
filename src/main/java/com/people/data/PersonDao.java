@@ -63,12 +63,10 @@ public class PersonDao implements IPersonDao{
     @Override
     public void updatePerson(Person person) {
         
-        Person personForUpdate = this.getPerson(person);
-        
         try {
             
             em.getTransaction().begin();
-            em.merge(personForUpdate);
+            em.merge(person);
             em.getTransaction().commit();
             
         } catch (Exception ex) {
