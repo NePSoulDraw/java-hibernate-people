@@ -14,7 +14,7 @@
         
         <jsp:include page="/WEB-INF/components/commons/header.jsp" />
         
-        <jsp:include page="/WEB-INF/components/commons/createButton.jsp" />
+        <jsp:include page="/WEB-INF/components/commons/navButtons.jsp" />
         
         <jsp:include page="/WEB-INF/components/people/peopleList.jsp" />
         

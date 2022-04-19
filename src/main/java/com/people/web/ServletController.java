@@ -19,26 +19,33 @@ public class ServletController extends HttpServlet{
     protected void doGet(HttpServletRequest req, HttpServletResponse res) 
             throws ServletException, IOException{
         
-        this.deployInfo(req, res);
+        String action = req.getParameter("action");
         
-    }
-    
-    private void deployInfo(HttpServletRequest req, HttpServletResponse res) 
-                   throws ServletException, IOException{
-        
-        List<Person> people = new PersonService().getAllPeople();
-        
-        HttpSession session = req.getSession();
-        
-        session.setAttribute("people", people);
-        
-        res.sendRedirect("people.jsp");
+        if(action != null){
+            
+            switch(action){
+                case "orderByName":
+                    this.deployInfoSortByName(req, res);
+                    break;
+                case "orderBySurname":
+                    this.deployInfoSortBySurname(req, res);
+                    break;
+                case "orderByPhone":
+                    this.deployInfoSortByPhone(req, res);
+                    break;
+                default:
+                    this.deployInfo(req, res);
+            }
+            
+        }else{
+            this.deployInfo(req, res);
+        }
         
     }
     
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse res) 
-                   throws ServletException, IOException{
+            throws ServletException, IOException{
         
         String action = req.getParameter("action");
         
@@ -58,8 +65,60 @@ public class ServletController extends HttpServlet{
         
     }
     
+    private void deployInfo(HttpServletRequest req, HttpServletResponse res) 
+            throws ServletException, IOException{
+        
+        List<Person> people = new PersonService().getAllPeople();
+        
+        HttpSession session = req.getSession();
+        
+        session.setAttribute("people", people);
+        
+        res.sendRedirect("people.jsp");
+        
+    }
+    
+    private void deployInfoSortByName(HttpServletRequest req, HttpServletResponse res) 
+            throws ServletException, IOException{
+        
+        List<Person> people = new PersonService().getAllPeopleSortByName();
+        
+        HttpSession session = req.getSession();
+        
+        session.setAttribute("people", people);
+        
+        res.sendRedirect("people.jsp");
+        
+    }
+    
+    private void deployInfoSortBySurname(HttpServletRequest req, HttpServletResponse res) 
+            throws ServletException, IOException{
+        
+        List<Person> people = new PersonService().getAllPeopleSortBySurname();
+        
+        HttpSession session = req.getSession();
+        
+        session.setAttribute("people", people);
+        
+        res.sendRedirect("people.jsp");
+        
+    }
+    
+    private void deployInfoSortByPhone(HttpServletRequest req, HttpServletResponse res) 
+            throws ServletException, IOException{
+        
+        List<Person> people = new PersonService().getAllPeopleSortByPhoneDesc();
+        
+        HttpSession session = req.getSession();
+        
+        session.setAttribute("people", people);
+        
+        res.sendRedirect("people.jsp");
+        
+    }
+    
     private void insertPerson(HttpServletRequest req, HttpServletResponse res) 
-                   throws ServletException, IOException{
+            throws ServletException, IOException{
         
         String name = req.getParameter("name");
         
